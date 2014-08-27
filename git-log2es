@@ -1,0 +1,11 @@
+#!/bin/sh
+#
+# Extract git-log and put them into Elasticsearch
+# Usage:
+#   ./git-log2es <git-dir>
+#
+
+INDEX=$(basename $1)
+mkdir -p bulk
+./git-esbulk.sh $1 > bulk/$INDEX.js
+./bulk-insert.sh bulk/$INDEX.js
