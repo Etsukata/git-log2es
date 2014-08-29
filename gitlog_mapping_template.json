@@ -1,0 +1,52 @@
+{
+    "settings": {
+        "number_of_shards": 2,
+        "number_of_replica": 0
+    },
+    "mappings": {
+        "_default_": {
+            "_id": {
+                "path": "commit_id"
+            },
+            "properties": {
+                "commit_id": {
+                    "type": "string",
+                    "index": "not_analyzed"
+                },
+                "author_name": {
+                    "type": "string",
+                    "fields": {
+                        "raw": {"type": "string", "index": "not_analyzed"}
+                    }
+                },
+                "author_email": {
+                    "type": "string",
+                    "fields": {
+                        "raw": {"type": "string", "index": "not_analyzed"}
+                    }
+                },
+                "committer_name": {
+                    "type": "string",
+                    "fields": {
+                        "raw": {"type": "string", "index": "not_analyzed"}
+                    }
+                },
+                "committer_email": {
+                    "type": "string",
+                    "fields": {
+                        "raw": {"type": "string", "index": "not_analyzed"}
+                    }
+                },
+                "date": {
+                    "type": "date"
+                },
+                "subject": {
+                    "type": "string"
+                },
+                "body": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

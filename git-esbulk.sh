@@ -11,8 +11,9 @@ else
 fi
 
 REPO=$(basename $(cd $DIR && pwd))
-FORMAT='{ "index": { "_index": "oss", "_type" : "'$REPO'", "_id" : "%H" } }
-{ "commit_id": "%H", "author": "%an <%ae>", "date": "%ad", "subject": "%f" }'
+# with body but it doesn't work now. body include newline...
+#FORMAT='{ "commit_id": "%H", "author": {"author_name": "%an", "author_email": "%ae"},  "committer": {"committer_name": "%cn", "committer_email": "ce"}, "date": "%ad", "subject": "%f" , "body": "%b"}'
+FORMAT='{ "commit_id": "%H", "author_name": "%an", "author_email": "%ae", "committer_name": "%cn", "committer_email": "%ce", "date": "%ad", "subject": "%f" }'
 
 git --git-dir $DIR/.git log --date=short \
     --pretty=format:"$FORMAT"

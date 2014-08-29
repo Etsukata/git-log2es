@@ -5,7 +5,12 @@
 #   ./git-log2es <git-dir>
 #
 
-INDEX=$(basename $1)
+IDX_TYPE=$(basename $1)
+IDX_NAME="oss-gitlog"
+ES_PATH="http://localhost:9200"
+STREAM2ES=./stream2es
+
 mkdir -p bulk
-./git-esbulk.sh $1 > bulk/$INDEX.js
-./bulk-insert.sh bulk/$INDEX.js
+./git-esbulk.sh $1 > bulk/$IDX_TYPE.json
+./create-index.sh $IDX_TYPE $IDX_NAME $ES_PATH
+$STREAM2ES stdin --target $ES_PATH/$IDX_NAME/$IDX_TYPE < bulk/$IDX_TYPE.json
